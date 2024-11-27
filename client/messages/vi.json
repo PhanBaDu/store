@@ -1,0 +1,31 @@
+{
+    "Wellcome": {
+        "message": "chào mừng đến với dự án thương-mại-điện-tử xem-dự-án"
+    },
+    "AppHeader": {
+        "left_title-1": "Kênh người bán",
+        "left_title-2": "Đăng ký làm người bán",
+        "left_title-3": "Kết nối",
+        "right_title-1": "Thông báo",
+        "right_title-2": "Hỗ trợ",
+        "right_title-3": "{langue}",
+        "right_title-4": "Đăng ký",
+        "right_title-5": "Đăng nhập"
+    },
+    "Auth": {
+        "sign_in_heading": "Nền tảng thương mại điện tử",
+        "sign_in_wellcome": "Chào mừng bạn trở lại",
+        "sign_in_title": "Đăng nhập",
+        "sign_in_action": "Tiếp tục",
+        "sign_in_or": "hoặc",
+        "sign_in_link": "Bạn chưa có tài khoản?",
+        "sign_in_href": "Đăng ký",
+        "sign_in_footer_policy": "Chính sách bảo mật",
+        "sign_in_footer_copyright": "Bản quyền thuộc về teams",
+        "sign_up_title": "Đăng ký tài khoản",
+        "sign_up_description": "Vui lòng điền thông tin chi tiết để bắt đầu",
+        "sign_up_action": "Tiếp Tục",
+        "sign_up_link": "Bạn đã có tài khoản?",
+        "sign_up_href": "Đăng nhập"
+    }
+}

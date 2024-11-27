@@ -1,0 +1,31 @@
+{
+    "Wellcome": {
+        "message": "welcome to the e-commerce project view-project"
+    },
+    "AppHeader": {
+        "left_title-1": "Seller Channel",
+        "left_title-2": "Register as a seller",
+        "left_title-3": "Contact",
+        "right_title-1": "Notification",
+        "right_title-2": "Help",
+        "right_title-3": "{langue}",
+        "right_title-4": "Sign Up",
+        "right_title-5": "Login"
+    },
+    "Auth": {
+        "sign_in_heading": "E-commerce platform",
+        "sign_in_wellcome": "Welcome back",
+        "sign_in_title": "Login",
+        "sign_in_action": "Login",
+        "sign_in_or": "or",
+        "sign_in_link": "New to Monney?",
+        "sign_in_href": "Sign Up",
+        "sign_in_footer_policy": "Privacy Policy",
+        "sign_in_footer_copyright": "Copyright belongs to teams",
+        "sign_up_title": "Register Account",
+        "sign_up_description": "Please fill in your details to get started.",
+        "sign_up_action": "Continue",
+        "sign_up_link": "Have an account?",
+        "sign_up_href": "Log In"
+    }
+}
