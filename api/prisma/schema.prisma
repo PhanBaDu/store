@@ -14,8 +14,40 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid())
-  email String
-  password String
-  userAgent String?
+  id          String   @id @default(uuid())
+  fullName    String? 
+  email       String  @unique
+  phoneNumber String?  @unique
+  password    String
+  avatarUrl   String?
+  gender      String?
+  verified    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  verificationCodes VerificationCode[] @relation("UserVerificationCodes")
+  session Session[]
+}
+
+model VerificationCode {
+  id        String   @id @default(uuid())
+  userId    String   
+  type      VerificationCodeType
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation("UserVerificationCodes", fields: [userId], references: [id])
+}
+
+enum VerificationCodeType {
+  email_verification
+  password_reset
+}
+
+model Session {
+  id        String   @id @default(uuid())    
+  userId    String                              
+  userAgent String?                            
+  createdAt DateTime @default(now())             
+  expiresAt DateTime @default(now()) @updatedAt                      
+
+  user      User     @relation(fields: [userId], references: [id])
 }

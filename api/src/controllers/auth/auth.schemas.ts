@@ -9,3 +9,11 @@ export const signupSchema = z.object({
     password: passwordSchema,
     userAgent: z.string().optional(),
 });
+
+export const signinSchema = z.object({
+    email: emailSchema,
+    passwordUser: passwordSchema,
+    userAgent: z.string().optional(),
+});
+
+export const verificationCodeSchema = z.string().min(1).max(36);
