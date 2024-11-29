@@ -3,7 +3,7 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
@@ -24,24 +24,38 @@ import {
     FormItem,
     FormMessage,
 } from '@/components/ui/form';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Loader } from 'lucide-react';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
+import { useMutation } from '@tanstack/react-query';
+import { signup } from '@/features/auth/api/use-signup';
 
 const formSchema = z.object({
     email: z.string().min(6, {
         message: 'Email phải có ít nhất 6 ký tự.',
     }),
-    password: z.string().min(6, {
-        message: 'Email phải có ít nhất 6 ký tự.',
-    }),
-    confirmPassword: z.string().min(6, {
-        message: 'Email phải có ít nhất 6 ký tự.',
-    }),
 });
 
 export default function SignUpCard() {
+    const { mutate, isPending } = useMutation({
+        mutationFn: signup,
+        onSuccess: (data) => {
+            if (data.status === 201) {
+                toast.success(t('api_signup_success'));
+            } else {
+                toast.success(data.data.data);
+            }
+        },
+        onError: (error: any) => {
+            if (error.status === 409) {
+                toast.error(t('api_signup_error'));
+            } else {
+                toast.error(error.response.data.data.error);
+            }
+        },
+    });
+
     const t = useTranslations('Auth');
     const words_heading = t('sign_in_heading');
 
@@ -49,20 +63,18 @@ export default function SignUpCard() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             email: '',
-            password: '',
-            confirmPassword: '',
         },
     });
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
+    function onSubmit(data: z.infer<typeof formSchema>) {
+        mutate(data);
     }
 
     return (
         <div className="flex-1 flex justify-between items-center">
             <div className="flex">
                 <Image
-                    className="absolute top-[15%] translate-y-[-15%] left-52"
+                    className="absolute top-[15%] translate-y-[-15%] left-52 -z-[100]"
                     src="/png/background.png"
                     alt="Logo"
                     width={500}
@@ -111,44 +123,21 @@ export default function SignUpCard() {
                                     </FormItem>
                                 )}
                             />
-                            <FormField
-                                control={form.control}
-                                name="password"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormControl>
-                                            <Input
-                                                type="password"
-                                                placeholder="Password..."
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage className="absolute text-xs" />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="confirmPassword"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormControl>
-                                            <Input
-                                                type="password"
-                                                placeholder="Confirm password..."
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage className="absolute text-xs" />
-                                    </FormItem>
-                                )}
-                            />
                             <Button
                                 type="submit"
                                 className="w-full flex items-center"
                             >
-                                <span>{t('sign_up_action')}</span>
-                                <ChevronRight />
+                                {isPending ? (
+                                    <span>
+                                        <Loader className="animate-spin" />
+                                    </span>
+                                ) : (
+                                    <>
+                                        <span>{t('sign_up_action')}</span>
+
+                                        <ChevronRight />
+                                    </>
+                                )}
                             </Button>
                         </form>
                     </Form>

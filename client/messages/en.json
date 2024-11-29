@@ -26,6 +26,15 @@
         "sign_up_description": "Please fill in your details to get started.",
         "sign_up_action": "Continue",
         "sign_up_link": "Have an account?",
-        "sign_up_href": "Log In"
+        "sign_up_href": "Log In",
+        "api_signup_error": "Email already in use",
+        "api_signup_success": "Please go to gmail to confirm"
+    },
+    "Verify": {
+        "title": "Verification Page",
+        "pass_placonder": "Enter password",
+        "conf_placonder": "Confirm Password",
+        "button": "Confirm Registration",
+        "noti": "Password must contain 6 characters or more"
     }
 }

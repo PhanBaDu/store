@@ -26,6 +26,15 @@
         "sign_up_description": "Vui lòng điền thông tin chi tiết để bắt đầu",
         "sign_up_action": "Tiếp Tục",
         "sign_up_link": "Bạn đã có tài khoản?",
-        "sign_up_href": "Đăng nhập"
+        "sign_up_href": "Đăng nhập",
+        "api_signup_error": "Email này đã tồn tại",
+        "api_signup_success": "Vui lòng vào email để xác nhận tài khoản"
+    },
+    "Verify": {
+        "title": "Trang Xác Thực",
+        "pass_placonder": "Nhập mật khẩu",
+        "conf_placonder": "Xác nhận lại mật khẩu",
+        "button": "Xác Nhận Đăng Ký",
+        "noti": "Mật khẩu phải chứa 6 ký tự trở lên"
     }
 }

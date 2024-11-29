@@ -28,18 +28,31 @@ import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
+import { useMutation } from '@tanstack/react-query';
+import { signin } from '@/features/auth/api/use-signup';
 
 const formSchema = z.object({
     email: z.string().min(6, {
         message: 'Email phải có ít nhất 6 ký tự.',
     }),
     password: z.string().min(6, {
-        message: 'Email phải có ít nhất 6 ký tự.',
+        message: 'Mật khẩu phải có ít nhất 6 ký tự.',
     }),
 });
 
 export default function SignInCard() {
     const t = useTranslations('Auth');
+
+    const { mutate, isPending, isError } = useMutation({
+        mutationFn: signin,
+        onSuccess: (data) => {
+            console.log(data);
+        },
+        onError: (error) => {
+            console.log(error);
+        },
+    });
+
     const words_heading = t('sign_in_heading');
     const words_wellcome = t('sign_in_wellcome');
 
@@ -52,7 +65,7 @@ export default function SignInCard() {
     });
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
+        mutate(values);
     }
 
     return (

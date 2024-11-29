@@ -35,7 +35,7 @@ export const createAccount = async (data: SignUpParams) => {
             },
         });
 
-        const verificationLink = `${APP_ORIGIN}/email/verify/${verificationCode.id}`;
+        const verificationLink = `/vi/${APP_ORIGIN}/email/verify/${verificationCode.id}`;
 
         const url = `<a href="${verificationLink}">Verify your email</a> <p>This code will expire in 5 minutes.</p>`;
 

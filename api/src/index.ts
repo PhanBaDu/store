@@ -1,10 +1,11 @@
 // [IMPORT LIBRARY]
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import 'dotenv/config';
 
 // [IMPORT ENV]
-import { NODE_ENV, PORT } from './constants/env';
+import { APP_ORIGIN, NODE_ENV, PORT } from './constants/env';
 
 // [IMPORT ERROR HANDLER]
 import errorHandler from './middleware/errorHandler';
@@ -15,6 +16,12 @@ import connectToDatabase from './config/db';
 
 // [MIDDLEWARE]
 const app = express();
+app.use(
+    cors({
+        origin: APP_ORIGIN,
+        credentials: true,
+    }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

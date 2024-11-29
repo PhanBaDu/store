@@ -4,8 +4,8 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { ThemeProvider } from '@/components/theme-provider';
 import { JetBrains_Mono } from 'next/font/google';
-import StoreProvider from '@/app/[locale]/redux';
-
+import { QueryProvider } from '@/components/query-provider';
+import { Toaster } from '@/components/ui/sonner';
 const jet = JetBrains_Mono({
     subsets: ['latin'],
     display: 'swap',
@@ -33,7 +33,10 @@ export default async function LocaleLayout({
                     disableTransitionOnChange
                 >
                     <NextIntlClientProvider messages={messages}>
-                        <StoreProvider>{children}</StoreProvider>
+                        <QueryProvider>
+                            {children}
+                            <Toaster />
+                        </QueryProvider>
                     </NextIntlClientProvider>
                 </ThemeProvider>
             </body>
