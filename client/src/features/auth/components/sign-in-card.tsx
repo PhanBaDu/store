@@ -30,8 +30,11 @@ import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 
 const formSchema = z.object({
-    email: z.string().min(2, {
-        message: 'Email phải có ít nhất 2 ký tự.',
+    email: z.string().min(6, {
+        message: 'Email phải có ít nhất 6 ký tự.',
+    }),
+    password: z.string().min(6, {
+        message: 'Email phải có ít nhất 6 ký tự.',
     }),
 });
 
@@ -44,6 +47,7 @@ export default function SignInCard() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             email: '',
+            password: '',
         },
     });
 
@@ -87,7 +91,7 @@ export default function SignInCard() {
                     <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(onSubmit)}
-                            className="space-y-10 w-96"
+                            className="space-y-6 w-96"
                         >
                             <FormField
                                 control={form.control}
@@ -97,6 +101,22 @@ export default function SignInCard() {
                                         <FormControl>
                                             <Input
                                                 placeholder="Email..."
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage className="absolute text-xs" />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="password"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormControl>
+                                            <Input
+                                                type="password"
+                                                placeholder="Password..."
                                                 {...field}
                                             />
                                         </FormControl>

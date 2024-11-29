@@ -9,6 +9,6 @@ const router = Router();
 
 router.post('/sign-up', signup);
 router.post('/sign-in', signin);
-router.get('/email/verify/:code', verifyEmailHandler);
+router.post('/email/verify/:code', verifyEmailHandler);
 
 export default router;

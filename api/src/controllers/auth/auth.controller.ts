@@ -1,9 +1,7 @@
 import { CREATED, OK } from '../../constants/http';
-import {
-    createAccount,
-    loginUser,
-    verifyEmail,
-} from '../../services/auth.service';
+import { loginUser } from '../../services/authentication/signin.service';
+import { createAccount } from '../../services/authentication/signup.service';
+import { verifyEmail } from '../../services/authentication/verify-email.service';
 import catchErrors from '../../utils/catchErrors';
 import { setAuthCookies } from '../../utils/cookies';
 import {
@@ -15,10 +13,21 @@ import {
 export const signup = catchErrors(async (req, res, next) => {
     const request = signupSchema.parse({
         ...req.body,
-        userAgent: req.headers['user-agent'],
     });
     const { message } = await createAccount(request);
+
     return res.status(CREATED).json({ success: true, data: message });
+});
+
+export const verifyEmailHandler = catchErrors(async (req, res, next) => {
+    const verificationCode = verificationCodeSchema.parse({
+        code: req.params.code,
+        ...req.body,
+    });
+
+    const { message } = await verifyEmail(verificationCode);
+
+    return res.status(OK).json({ success: true, data: message });
 });
 
 export const signin = catchErrors(async (req, res, next) => {
@@ -27,17 +36,9 @@ export const signin = catchErrors(async (req, res, next) => {
         userAgent: req.headers['user-agent'],
     });
 
-    const { accessToken, refreshToken } = await loginUser(request);
-
+    const { user, accessToken, refreshToken } = await loginUser(request);
+    const { password, ...rest } = user;
     return setAuthCookies({ res, accessToken, refreshToken })
         .status(OK)
-        .json({ success: true, data: { message: 'Login successful' } });
-});
-
-export const verifyEmailHandler = catchErrors(async (req, res, next) => {
-    const verificationCode = verificationCodeSchema.parse(req.params.code);
-
-    await verifyEmail(verificationCode);
-
-    return res.status(OK).json({ message: 'Email was successfully verified' });
+        .json({ success: true, data: { user: rest } });
 });

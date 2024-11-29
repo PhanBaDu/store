@@ -33,6 +33,7 @@ const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
         handleZodError(res, error);
         return;
     }
+    console.log(error);
 
     res.status(INTERNAL_SERVER_ERROR).json({
         success: false,

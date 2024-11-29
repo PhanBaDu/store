@@ -30,8 +30,14 @@ import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 
 const formSchema = z.object({
-    email: z.string().min(2, {
-        message: 'Email phải có ít nhất 2 ký tự.',
+    email: z.string().min(6, {
+        message: 'Email phải có ít nhất 6 ký tự.',
+    }),
+    password: z.string().min(6, {
+        message: 'Email phải có ít nhất 6 ký tự.',
+    }),
+    confirmPassword: z.string().min(6, {
+        message: 'Email phải có ít nhất 6 ký tự.',
     }),
 });
 
@@ -43,6 +49,8 @@ export default function SignUpCard() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             email: '',
+            password: '',
+            confirmPassword: '',
         },
     });
 
@@ -86,7 +94,7 @@ export default function SignUpCard() {
                     <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(onSubmit)}
-                            className="space-y-10 w-96"
+                            className="space-y-6 w-96"
                         >
                             <FormField
                                 control={form.control}
@@ -96,6 +104,38 @@ export default function SignUpCard() {
                                         <FormControl>
                                             <Input
                                                 placeholder="Email..."
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage className="absolute text-xs" />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="password"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormControl>
+                                            <Input
+                                                type="password"
+                                                placeholder="Password..."
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage className="absolute text-xs" />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="confirmPassword"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormControl>
+                                            <Input
+                                                type="password"
+                                                placeholder="Confirm password..."
                                                 {...field}
                                             />
                                         </FormControl>
